@@ -253,79 +253,54 @@ LIMIT 10
 Task - 9 : CDGR - Cumulative Daily Growth Rate :-
 
 
+9
+
 WITH
-
   france_cases AS (
-
   SELECT
-
     date,
-
     SUM(cumulative_confirmed) AS total_cases
-
   FROM
-
     `bigquery-public-data.covid19_open_data.covid19_open_data`
-
   WHERE
-
     country_name="France"
-
     AND date IN ('2020-01-24',
-
       '2020-05-10')
-
   GROUP BY
-
     date
-
   ORDER BY
-
     date)
-
 , summary as (
-
 SELECT
-
   total_cases AS first_day_cases,
-
   LEAD(total_cases) OVER(ORDER BY date) AS last_day_cases,
-
   DATE_DIFF(LEAD(date) OVER(ORDER BY date),date, day) AS days_diff
-
 FROM
-
   france_cases
-
 LIMIT 1
-
 )
-
 select first_day_cases, last_day_cases, days_diff, POW((last_day_cases/first_day_cases),(1/days_diff))-1 as cdgr
-
 from summary
 
-----------------------------------------------------------------------------------------------------------------------------------------------
 
-Task - 10 : Create a Datastudio report :-
 
+10
 
 SELECT
-
   date, SUM(cumulative_confirmed) AS country_cases,
-
   SUM(cumulative_deceased) AS country_deaths
-
 FROM
-
   `bigquery-public-data.covid19_open_data.covid19_open_data`
-
 WHERE
-
   date BETWEEN '2020-03-15'
-
   AND '2020-04-30'
-
   AND country_name ="United States of America"
-
 GROUP BY date
+
+
+After input the '10' query
+Click "Explore Data" > "Explore with Data Studio"
+Authorize your BigQuery in Data Studio
+Save your Data Studio Explorer
+Get Started > Check "I acknowlegde..." > Accept > Yes to All > Done
+Check Your Progress
