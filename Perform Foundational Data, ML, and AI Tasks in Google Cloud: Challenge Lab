@@ -15,6 +15,7 @@ cat lab.schema
 
 # TASK 4 - PART 1 - CLOUD NATURAL LANGUAGE:
 
+export GOOGLE_CLOUD_PROJECT=$(gcloud config get-value core/project)
 
 gcloud iam service-accounts create my-natlang-sa \
   --display-name "my natural language service account"
